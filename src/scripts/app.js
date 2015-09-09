@@ -1,7 +1,7 @@
-angular.module('imageZoomApp',[]);
+angular.module('imageZoom',[]);
 
 angular
-  .module('imageZoomApp')
+  .module('imageZoom')
   .directive('zoom', function(){
     function link(scope, element, attrs){
       var $ = angular.element;
