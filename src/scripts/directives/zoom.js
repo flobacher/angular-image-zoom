@@ -1,6 +1,6 @@
 angular
-    .module('ngImageZoom')
-    .directive('ngImageZoom', function () {
+    .module('imageZoom')
+    .directive('zoom', function () {
         function link(scope, element, attrs) {
 
             var $ = angular.element,
@@ -96,7 +96,7 @@ angular
                 src: '@src',
                 zoomLvl: '@zoomLvl'
             },
-            templateUrl: 'ngimagezoom.html',
+            templateUrl: 'zoom.html',
             link: link
         };
     });

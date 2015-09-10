@@ -15,7 +15,7 @@ gulp.errorLogger = function(error) {
 
 
 gulp.task('styles', [], function() {
-    return gulp.src('src/styles/ngimagezoom.scss')
+    return gulp.src('./src/styles/ngimagezoom.scss')
         .pipe(plugins.plumber(gulp.errorLogger)) // display errors in console, but don't break the watch cycle
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.sass({errLogToConsole: true}))
@@ -32,7 +32,7 @@ gulp.task('styles', [], function() {
 gulp.task('templates', function() {
     return gulp.src(['./src/templates/**/*.html'])
         .pipe(plugins.angularTemplatecache({
-            module: 'ngImageZoom',
+            module: 'imageZoom',
             standalone:false,
             templateHeader: 'angular.module(\'<%= module %>\'<%= standalone %>).run([\'$templateCache\', function($templateCache) {\n',
             templateBody: '    $templateCache.put(\'<%= url %>\',\'<%= contents %>\');\n',
@@ -43,7 +43,7 @@ gulp.task('templates', function() {
 
 
 gulp.task('jshinting', function() {
-    return gulp.src(['src/scripts/*.js'])
+    return gulp.src(['./src/scripts/*.js'])
         .pipe(plugins.plumber(gulp.errorLogger))
         .pipe(plugins.jshint())
         .pipe(plugins.jshint.reporter(reporter))
@@ -80,8 +80,11 @@ gulp.task('build', ['styles', 'scripts'], function(callback) {
 
 gulp.task('watch', ['build'], function () {
     plugins.livereload.listen( {start:true} );
-    gulp.watch(['./src/scripts/*.js']);
-    gulp.watch(['./src/styles/*.scss']);
+    gulp.watch(['./src/scripts/*.js', './src/templates/*.html'], ['scripts']);
+    gulp.watch(['./src/styles/*.scss'], ['styles']);
+    gulp.watch(['./demo/index.html', './demo/scripts/demo.js']).on('change', function(file) {
+        plugins.livereload.reload('/');
+    });
 });
 
 

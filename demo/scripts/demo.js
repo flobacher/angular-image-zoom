@@ -1,5 +1,5 @@
 angular
-    .module('ngImageZoomDemo', ['ngImageZoom'])
+    .module('imageZoomDemo', ['imageZoom'])
     .controller('ImageZoomController', ['$sce', function ($sce) {
 
         this.images = [
