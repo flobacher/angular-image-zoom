@@ -1,0 +1,10 @@
+.gitignore
+.jshintrc
+.editorconfig
+.idea
+.jscsrc
+.tmp
+gulpfile.js
+src
+node_modules
+demo
