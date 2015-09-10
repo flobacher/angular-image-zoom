@@ -1,7 +1,7 @@
 {
   "name": "angular-image-zoom",
   "description": "image zoom for angularjs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "",
   "contributors": [
     {
@@ -44,7 +44,6 @@
     "jshint-stylish": "^2.0.1"
   },
   "dependencies": {
-    "angular": "^1.2.21"
   },
   "scripts": {
     "build": "gulp"
