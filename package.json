@@ -1,51 +1,52 @@
 {
-    "name": "ng-image-zoom",
-    "description": "image zoom for angularjs",
-    "version": "0.0.1",
-    "author": "",
-    "contributors": [
-        {
-            "name": " evxn"
-        },
-        {
-            "name": "Florian Bacher",
-            "email": "flo@digital-fuse.net"
-        }
-    ],
-    "main": "dist/imagezoom.js",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/flobacher/image-zoom.git"
+  "name": "angular-image-zoom",
+  "description": "image zoom for angularjs",
+  "version": "0.0.2",
+  "author": "",
+  "contributors": [
+    {
+      "name": " evxn"
     },
-    "keywords": [
-        "Image Zoom",
-        "Angular"
-    ],
-    "license": "MIT",
-    "devDependencies": {
-        "gulp": "^3.9.0",
-        "gulp-angular-templatecache": "^1.6.0",
-        "gulp-concat": "^2.5.2",
-        "gulp-jscs": "^1.4.0",
-        "gulp-jshint": "^1.9.0",
-        "gulp-livereload": "^3.6.0",
-        "gulp-load-plugins": "^0.10.0",
-        "gulp-minify-css": "^1.1.1",
-        "gulp-newer": "^0.5.0",
-        "gulp-ng-annotate": "~1.0.0",
-        "gulp-plumber": "^1.0.0",
-        "gulp-rename": "^1.2.2",
-        "gulp-sass": "^2.0.4",
-        "gulp-sourcemaps": "^1.5.2",
-        "gulp-uglify": "^1.2.0",
-        "gulp-watch": "^4.1.0"
-    },
-    "dependencies": {
-        "angular": "^1.2.21"
-    },
-    "scripts": {
-        "test": "jshint svg-injector.js",
-        "build": "uglifyjs ./src/imagezoom/*.js --stats --compress drop_console=true --mangle --comments --output ./imagezoom.min.js ./dist",
-        "buildDebug": "uglifyjs ./src/imagezoom/*.js --stats drop_console=false --comments --output ./imagezoom.js --source-map imagezoom.map.js && mv -f imagezoom.{map,min}.js ./dist"
+    {
+      "name": "Florian Bacher",
+      "email": "flo@digital-fuse.net"
     }
+  ],
+  "main": ["dist/ngimagezoom.min.js", "dist/ngimagezoom.min.css"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flobacher/angular-image-zoom.git"
+  },
+  "keywords": [
+    "Image Zoom",
+    "Angular"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-angular-templatecache": "^1.6.0",
+    "gulp-concat": "^2.5.2",
+    "gulp-jscs": "^1.4.0",
+    "gulp-jshint": "^1.9.0",
+    "gulp-livereload": "^3.8.0",
+    "gulp-load-plugins": "^0.10.0",
+    "gulp-minify-css": "^1.1.1",
+    "gulp-newer": "^0.5.0",
+    "gulp-ng-annotate": "~1.0.0",
+    "gulp-plumber": "^1.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.0.4",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0",
+    "gulp-util": "^3.0.6",
+    "gulp-watch": "^4.1.0",
+    "gulp-wrap": "^0.11.0",
+    "jshint-stylish": "^2.0.1"
+  },
+  "dependencies": {
+    "angular": "^1.2.21"
+  },
+  "scripts": {
+    "build": "gulp"
+  }
 }

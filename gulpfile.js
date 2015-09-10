@@ -1,19 +1,22 @@
 'use strict';
 
-var gulp        = require('gulp'),
+var gulp     = require('gulp'),
+    reporter = require('jshint-stylish'),
     plugins
 ;
 
 plugins = require('gulp-load-plugins')({lazy:false});
+
 
 gulp.errorLogger = function(error) {
     plugins.util.log(plugins.util.colors.red(error.message));
     this.emit('end');
 };
 
+
 gulp.task('styles', [], function() {
-    return gulp.src('src/styles/imagezoom.scss')
-        .pipe(plugins.plumber(onError)) // display errors in console, but don't break the watch cycle
+    return gulp.src('src/styles/ngimagezoom.scss')
+        .pipe(plugins.plumber(gulp.errorLogger)) // display errors in console, but don't break the watch cycle
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.sass({errLogToConsole: true}))
         .pipe(plugins.sourcemaps.write())
@@ -25,42 +28,61 @@ gulp.task('styles', [], function() {
         .pipe(gulp.dest('dist/'));
 });
 
-gulp.task('jshinting', function() {
-    return gulp.src([packagePaths.app.scripts, '!' + packagePath + 'app/app-templates.js'])
-        .pipe(plugins.plumber(onError))
-        .pipe(plugins.jshint())
-        .pipe(plugins.jshint.reporter(reporter))
-        .pipe(plugins.jscs())
-        ;
+
+gulp.task('templates', function() {
+    return gulp.src(['./src/templates/**/*.html'])
+        .pipe(plugins.angularTemplatecache({
+            module: 'ngImageZoom',
+            standalone:false,
+            templateHeader: 'angular.module(\'<%= module %>\'<%= standalone %>).run([\'$templateCache\', function($templateCache) {\n',
+            templateBody: '    $templateCache.put(\'<%= url %>\',\'<%= contents %>\');\n',
+            templateFooter: '}]);\n'
+        }))
+        .pipe(gulp.dest('./.tmp/'));
 });
 
-gulp.task('scripts', ['jshinting'], function(callback) {
-    return gulp.src([
-        'src/scripts/*.js'
-    ])
-    .pipe(plugins.sourcemaps.init())
-    .pipe(plugins.concat('imagezoom.js'))
-    .pipe(plugins.sourcemaps.write())
-    .pipe(gulp.dest('dist/imagezoom.js'))
-    .pipe(plugins.livereload())
-    .pipe(plugins.ngAnnotate())
-    .pipe(plugins.uglify({
-        sourceMap: false,
-        compress: {
-            drop_console: true
-        },
-        mangle: true,
-        beautify: false
-    }))
-    .pipe(plugins.rename({suffix: '.min'}))
-    .pipe(gulp.dest('dist/imagezoom.min.js'));
+
+gulp.task('jshinting', function() {
+    return gulp.src(['src/scripts/*.js'])
+        .pipe(plugins.plumber(gulp.errorLogger))
+        .pipe(plugins.jshint())
+        .pipe(plugins.jshint.reporter(reporter))
+        .pipe(plugins.jscs());
+});
+
+
+gulp.task('scripts', ['templates', 'jshinting'], function(callback) {
+    return gulp.src(['./src/scripts/module.js', './.tmp/templates.js', './src/scripts/**/*.js']) //,
+        .pipe(plugins.sourcemaps.init())
+        .pipe(plugins.concat('ngimagezoom.js'))
+        .pipe(plugins.wrap('(function(window, document, angular) {\n\'use strict\';\n<%= contents %>\n}(window, document, window.angular));'))
+        .pipe(plugins.sourcemaps.write())
+        .pipe(gulp.dest('dist/'))
+        .pipe(plugins.livereload())
+        .pipe(plugins.ngAnnotate())
+        .pipe(plugins.uglify({
+            sourceMap: false,
+            compress: {
+                drop_console: true
+            },
+            mangle: true,
+            beautify: false
+        }))
+        .pipe(plugins.rename({suffix: '.min'}))
+        .pipe(gulp.dest('dist/'));
 });
 
 
 gulp.task('build', ['styles', 'scripts'], function(callback) {
-        callback();
+    callback();
+});
+
+
+gulp.task('watch', ['build'], function () {
+    plugins.livereload.listen( {start:true} );
+    gulp.watch(['./src/scripts/*.js']);
+    gulp.watch(['./src/styles/*.scss']);
 });
 
 
 gulp.task('default', ['build']);
-gulp.task('dev', ['watch']);
