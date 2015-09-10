@@ -1,0 +1,25 @@
+.original,
+.zoomed {
+    float: left;
+}
+
+aside {
+    position: absolute;
+    right: 0;
+    max-width: 30%;
+}
+
+.container-fluid{
+    margin: 0 .5em;
+    padding: 0;
+}
+
+.zoomed {
+    margin-left: 4em;
+}
+
+.mark {
+    opacity: .3;
+    border: 6px dotted #fff;
+    background: #eee;
+}

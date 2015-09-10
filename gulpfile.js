@@ -17,9 +17,9 @@ gulp.errorLogger = function(error) {
 gulp.task('styles', [], function() {
     return gulp.src('./src/styles/ngimagezoom.scss')
         .pipe(plugins.plumber(gulp.errorLogger)) // display errors in console, but don't break the watch cycle
-        .pipe(plugins.sourcemaps.init())
+        //.pipe(plugins.sourcemaps.init())
         .pipe(plugins.sass({errLogToConsole: true}))
-        .pipe(plugins.sourcemaps.write())
+        //.pipe(plugins.sourcemaps.write())
 
         .pipe(gulp.dest('dist/'))
         .pipe(plugins.livereload())
@@ -59,7 +59,7 @@ gulp.task('scripts', ['templates', 'jshinting'], function(callback) {
         .pipe(plugins.sourcemaps.write())
         .pipe(gulp.dest('dist/'))
         .pipe(plugins.livereload())
-        .pipe(plugins.ngAnnotate())
+        //.pipe(plugins.ngAnnotate())
         .pipe(plugins.uglify({
             sourceMap: false,
             compress: {

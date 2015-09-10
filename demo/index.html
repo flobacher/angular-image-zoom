@@ -5,10 +5,11 @@
   <title>Image Zoom Demo</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
   <link rel="stylesheet" href="../dist/ngimagezoom.css">
+  <link rel="stylesheet" href="./styles/demo.css">
 </head>
 <body>
 <div class="container-fluid" ng-controller="ImageZoomController as zoom">
-  <div zoom mark-height="100" mark-width="100" src="{{zoom.src}}" zoom-lvl="{{zoom.zoomLvl}}"></div>
+  <div zoom zoom-mark-height="100" zoom-mark-width="100" zoom-image-src="{{zoom.src}}" zoom-level="{{zoom.zoomLvl}}"></div>
   <aside>
     <div>
 
