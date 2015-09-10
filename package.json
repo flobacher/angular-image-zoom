@@ -1,11 +1,12 @@
 {
   "name": "angular-image-zoom",
   "description": "image zoom for angularjs",
-  "version": "0.0.4",
-  "author": "",
+  "version": "0.0.5",
+  "author": "Evgeniy Malyutin",
   "contributors": [
     {
-      "name": " evxn"
+      "name": "Evgeniy Malyutin",
+      "homepage": "https://github.com/evxn"
     },
     {
       "name": "Florian Bacher",
