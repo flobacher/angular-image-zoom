@@ -59,7 +59,6 @@ gulp.task('scripts', ['templates', 'jshinting'], function(callback) {
         .pipe(plugins.sourcemaps.write())
         .pipe(gulp.dest('dist/'))
         .pipe(plugins.livereload())
-        //.pipe(plugins.ngAnnotate())
         .pipe(plugins.uglify({
             sourceMap: false,
             compress: {
@@ -80,7 +79,7 @@ gulp.task('build', ['styles', 'scripts'], function(callback) {
 
 gulp.task('watch', ['build'], function () {
     plugins.livereload.listen( {start:true} );
-    gulp.watch(['./src/scripts/*.js', './src/templates/*.html'], ['scripts']);
+    gulp.watch(['./src/scripts/**/*.js', './src/templates/*.html'], ['scripts']);
     gulp.watch(['./src/styles/*.scss'], ['styles']);
     gulp.watch(['./demo/index.html', './demo/scripts/demo.js']).on('change', function(file) {
         plugins.livereload.reload('/');

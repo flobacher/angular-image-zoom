@@ -1,1 +1,1 @@
-.original,.zoomed,.zoomed img{position:relative}.original,.zoomed{overflow:hidden}.mark{position:absolute}.hide{visibility:hidden}
+.zoom-control__clip,.zoom-image-container__clip{overflow:hidden;position:relative}.zoom-control__clip img{width:100%;max-width:100%;display:block}.zoom-image-container__clip img{position:relative;display:block}.mark{position:absolute;background:rgba(255,255,255,.3);border:1px solid rgba(235,235,235,.5);pointer-events:none}

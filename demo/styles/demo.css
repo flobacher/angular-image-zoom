@@ -1,5 +1,5 @@
-.original,
-.zoomed {
+.zoom-image-container,
+.zoom-control {
     float: left;
 }
 
@@ -14,12 +14,12 @@ aside {
     padding: 0;
 }
 
-.zoomed {
+.zoom-image-container {
     margin-left: 4em;
+    width: 800px;
+    outline: 1px solid #999;
 }
 
-.mark {
-    opacity: .3;
-    border: 6px dotted #fff;
-    background: #eee;
+.zoom-control {
+    width: 300px;
 }
