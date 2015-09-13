@@ -6,20 +6,23 @@
 aside {
     position: absolute;
     right: 0;
-    max-width: 30%;
+    width: 30%;
 }
 
 .container-fluid{
-    margin: 0 .5em;
+    margin: 0;
     padding: 0;
 }
 
 .zoom-image-container {
-    margin-left: 4em;
-    width: 800px;
+    width: 70%;
     outline: 1px solid #999;
 }
 
 .zoom-control {
-    width: 300px;
+    /*width: 300px;*/
+}
+
+fieldset {
+    margin: 0;
 }
