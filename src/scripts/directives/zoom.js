@@ -8,8 +8,13 @@ angular
             scope.controlElem = $(element[0].querySelector('[zoom-control]'));
             scope.imageContainerElem = $(element[0].querySelector('[zoom-image-container]'));
 
+            scope.$broadcast('zoom-control:found', scope.controlElem);
+            scope.$broadcast('zoom-imagecontainer:found', scope.imageContainerElem);
+
+            //console.log('zoomImageContainerElem', scope.imageContainerElem);
+
             attrs.$observe('zoomImagesrc', function (data) {
-                //console.log('update src', data, attrs.zoom);
+                console.log('update src', data, attrs.zoom);
                 scope.imageSrc = attrs.zoomImagesrc;
                 $rootScope.$broadcast('zoom-imagesrc:changed', attrs.zoomImagesrc);
             }, true);

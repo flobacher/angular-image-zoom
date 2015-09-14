@@ -10,9 +10,13 @@ angular
 
             scope.imageSrc = ctrl.getImageUrl();
 
-            scope.$on('zoom-image:loaded', function(event, imageContainerHeight) {
-                //console.log('imageCOntainerHeight', imageContainerHeight);
+            scope.$on('zoom-image:loaded', function(event) {
+                var imageContainerHeight;
+
                 scope.origDimensions = ctrl.getOrigDimensions();
+                imageContainerHeight = zoomed[0].clientWidth * (scope.origDimensions.height/scope.origDimensions.width);
+                console.log('imageContainerHeight', imageContainerHeight);
+
                 zoomed
                     .css('height', imageContainerHeight + 'px');
 

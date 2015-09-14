@@ -12,45 +12,64 @@ angular
                 origHeight = image[0].naturalHeight,
                 markBoundingRect = mark[0].getBoundingClientRect();
 
+            console.log('clip', clip);
+
             scope.imageSrc = ctrl.getImageUrl();
             scope.imageContainerElem = ctrl.getImageContainerElem();
             scope.imageContainerElemZoomed = scope.imageContainerElem[0].querySelector('.zoom-image-container__clip');
+            console.log('container_clip', scope.imageContainerElemZoomed);
 
             scope.$on('zoom-imagesrc:changed', function(evt, newSrc) {
                 scope.imageSrc = newSrc;
             });
 
             if (!origWidth || !origHeight) {
-                image[0].addEventListener('load', function(evt) {
-                    //console.log('loaded', evt.currentTarget);
-                    var imageContainerHeight;
+                image[0].addEventListener('load', onImageLoaded);
+            }
 
-                    origWidth = image[0].naturalWidth;
-                    origHeight = image[0].naturalHeight;
+            function onImageLoaded(evt) {
+                console.log('loaded', evt.currentTarget);
 
-                    ctrl.setOrigDimensions(origWidth, origHeight);
+                origWidth = image[0].naturalWidth;
+                origHeight = image[0].naturalHeight;
 
+                ctrl.setOrigDimensions(origWidth, origHeight);
 
-                    if(scope.imageContainerElem && scope.imageContainerElem.length > 0) {
-                        scope.markWidth = scope.imageContainerElemZoomed.clientWidth / origWidth * clip[0].clientWidth;
+                if(scope.imageContainerElem && scope.imageContainerElem.length > 0) {
 
-                        //console.log('width', scope.imageContainerElemZoomed.clientWidth, origHeight / origWidth);
-                        imageContainerHeight = scope.imageContainerElemZoomed.clientWidth * (origHeight/origWidth);
-
-                        scope.markHeight = imageContainerHeight / origHeight * clip[0].clientHeight;
-
-                        $rootScope.$broadcast('zoom-image:loaded', imageContainerHeight);
+                    if(scope.imageContainerElemZoomed) {
+                        initMark();
+                    } else {
+                        scope.$on('zoom-imagecontainer:found', initMark());
                     }
 
-                    mark.css('height', scope.markHeight + 'px')
-                        .css('width', scope.markWidth + 'px');
+                }
+                $rootScope.$broadcast('zoom-image:loaded');
 
 
-                    moveMarkRel({x:0.5, y:0.5});
-                });
             }
 
             //scope.level =  isNaN(lvlCandidate) ? 1 : lvlCandidate;
+            function initMark() {
+                var imageContainerHeight;
+
+                console.log('clip', clip);
+                console.log('container_clip', scope.imageContainerElemZoomed);
+
+                scope.markWidth = scope.imageContainerElemZoomed.clientWidth / origWidth * clip[0].clientWidth;
+
+                //console.log('width', scope.imageContainerElemZoomed.clientWidth, origHeight / origWidth);
+                imageContainerHeight = scope.imageContainerElemZoomed.clientWidth * (origHeight/origWidth);
+
+                scope.markHeight = imageContainerHeight / origHeight * clip[0].clientHeight;
+
+                mark.css('height', scope.markHeight + 'px')
+                    .css('width', scope.markWidth + 'px');
+
+
+                //moveMarkRel({x:0.5, y:0.5});
+            }
+
             function onMouseMove(evt) {
                 moveMarkRel(calculateOffsetRelative(evt));
             }
