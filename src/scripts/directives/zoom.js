@@ -14,7 +14,7 @@ angular
             //console.log('zoomImageContainerElem', scope.imageContainerElem);
 
             attrs.$observe('zoomImagesrc', function (data) {
-                console.log('update src', data, attrs.zoom);
+                //console.log('update src', data, attrs.zoom);
                 scope.imageSrc = attrs.zoomImagesrc;
                 $rootScope.$broadcast('zoom-imagesrc:changed', attrs.zoomImagesrc);
             }, true);

@@ -15,7 +15,7 @@ angular
 
                 scope.origDimensions = ctrl.getOrigDimensions();
                 imageContainerHeight = zoomed[0].clientWidth * (scope.origDimensions.height/scope.origDimensions.width);
-                console.log('imageContainerHeight', imageContainerHeight);
+                //console.log('imageContainerHeight', imageContainerHeight);
 
                 zoomed
                     .css('height', imageContainerHeight + 'px');
@@ -39,12 +39,12 @@ angular
             }
 
             attrs.$observe('ngSrc', function (data) {
-                console.log('update src', data, attrs.ngSrc);
+                //console.log('update src', data, attrs.ngSrc);
                 scope.imageSrc = attrs.ngSrc;
             }, true);
 
             attrs.$observe('level', function (data) {
-                console.log('update level', data);
+                //console.log('update level', data);
                 scope.level = data;
             }, true);
         }

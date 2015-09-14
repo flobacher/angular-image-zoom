@@ -12,12 +12,12 @@ angular
                 origHeight = image[0].naturalHeight,
                 markBoundingRect = mark[0].getBoundingClientRect();
 
-            console.log('clip', clip);
+
 
             scope.imageSrc = ctrl.getImageUrl();
             scope.imageContainerElem = ctrl.getImageContainerElem();
             scope.imageContainerElemZoomed = scope.imageContainerElem[0].querySelector('.zoom-image-container__clip');
-            console.log('container_clip', scope.imageContainerElemZoomed);
+
 
             scope.$on('zoom-imagesrc:changed', function(evt, newSrc) {
                 scope.imageSrc = newSrc;
@@ -52,10 +52,6 @@ angular
             //scope.level =  isNaN(lvlCandidate) ? 1 : lvlCandidate;
             function initMark() {
                 var imageContainerHeight;
-
-                console.log('clip', clip);
-                console.log('container_clip', scope.imageContainerElemZoomed);
-
                 scope.markWidth = scope.imageContainerElemZoomed.clientWidth / origWidth * clip[0].clientWidth;
 
                 //console.log('width', scope.imageContainerElemZoomed.clientWidth, origHeight / origWidth);
@@ -94,7 +90,7 @@ angular
                     verti = clip[0].clientHeight / scope.markHeight, //1.9;
                     hori =  clip[0].clientWidth / scope.markWidth;//2;
 
-
+                //console.log('x', offsetRel.x, clip[0].clientWidth, dx *.5);
                 mark
                     .css('left', x + 'px')
                     .css('top',  y + 'px');
@@ -106,7 +102,7 @@ angular
             function calculateOffsetRelative(mouseEvent) {
 
                 markBoundingRect = markBoundingRect || mouseEvent.currentTarget.getBoundingClientRect();
-
+                //console.log('offseet',  mouseEvent.currentTarget, mouseEvent.clientX, markBoundingRect.left, mouseEvent.currentTarget.clientWidth);
                 return {
                     x: (mouseEvent.clientX - markBoundingRect.left) / (mouseEvent.currentTarget.clientWidth),
                     y: (mouseEvent.clientY - markBoundingRect.top) / mouseEvent.currentTarget.clientHeight
