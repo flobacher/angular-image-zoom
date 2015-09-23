@@ -55,7 +55,12 @@ gulp.task('scripts', ['templates', 'jshinting'], function(callback) {
     return gulp.src(['./src/scripts/module.js', './.tmp/templates.js', './src/scripts/**/*.js']) //,
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.concat('ngimagezoom.js'))
-        .pipe(plugins.wrap('(function(window, document, angular) {\n\'use strict\';\n<%= contents %>\n}(window, document, window.angular));'))
+        .pipe(plugins.wrap(
+            '/**\n' +
+            ' * @license AngularImage Zoom\n' +
+            ' * License: MIT\n' +
+            ' */\n' +
+            '(function(window, document, angular) {\n\'use strict\';\n<%= contents %>\n})(window, document, window.angular);'))
         .pipe(plugins.sourcemaps.write())
         .pipe(gulp.dest('dist/'))
         .pipe(plugins.livereload())
@@ -64,6 +69,7 @@ gulp.task('scripts', ['templates', 'jshinting'], function(callback) {
             compress: {
                 drop_console: true
             },
+            preserveComments: 'license',
             mangle: true,
             beautify: false
         }))

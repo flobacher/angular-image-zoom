@@ -1,6 +1,6 @@
 angular
     .module('imageZoom')
-    .directive('zoomImageContainer', [function () {
+    .directive('zoomImageContainer', function () {
 
         function link(scope, element, attrs, ctrl) {
 
@@ -56,4 +56,4 @@ angular
             templateUrl: 'zoom-image-container.html',
             link: link
         };
-    }]);
+    });

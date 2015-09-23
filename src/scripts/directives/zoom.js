@@ -32,7 +32,7 @@ angular
                 imageSrc: '@zoomImagesrc'
             },
             link: link,
-            controller: function($scope) {
+            controller: ['$scope', function($scope) {
 
 
                 this.getImageUrl = function() {
@@ -58,6 +58,6 @@ angular
                         height: $scope.origHeight
                     };
                 };
-            }
+            }]
         };
     }]);
