@@ -14,7 +14,7 @@
 
 .zoom-image-container__clip {
     overflow: hidden;
-
+    max-height: 100%;
     img{
         position: relative;
         display: block;

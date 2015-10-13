@@ -10,7 +10,8 @@
     display: block; }
 
 .zoom-image-container__clip {
-  overflow: hidden; }
+  overflow: hidden;
+  max-height: 100%; }
   .zoom-image-container__clip img {
     position: relative;
     display: block; }

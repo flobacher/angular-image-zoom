@@ -28,10 +28,10 @@ angular
             }
 
             function onImageLoaded(evt) {
-                console.log('loaded', evt.currentTarget);
 
                 origWidth = image[0].naturalWidth;
                 origHeight = image[0].naturalHeight;
+                //console.log('loaded', evt.currentTarget, origWidth, origHeight);
 
                 ctrl.setOrigDimensions(origWidth, origHeight);
 
@@ -54,16 +54,16 @@ angular
                 var imageContainerHeight;
                 scope.markWidth = scope.imageContainerElemZoomed.clientWidth / origWidth * clip[0].clientWidth;
 
-                //console.log('width', scope.imageContainerElemZoomed.clientWidth, origHeight / origWidth);
+
                 imageContainerHeight = scope.imageContainerElemZoomed.clientWidth * (origHeight/origWidth);
 
                 scope.markHeight = imageContainerHeight / origHeight * clip[0].clientHeight;
+                //console.log('width x height', scope.imageContainerElemZoomed.clientWidth, origHeight / origWidth);
 
                 mark.css('height', scope.markHeight + 'px')
                     .css('width', scope.markWidth + 'px');
 
-
-                //moveMarkRel({x:0.5, y:0.5});
+                //console.log('markWidth x markHeight', scope.markWidth, scope.markHeight);
             }
 
             function onMouseMove(evt) {
@@ -87,10 +87,11 @@ angular
                     dy = scope.markHeight,
                     x = offsetRel.x * clip[0].clientWidth - dx *.5,
                     y = offsetRel.y * clip[0].clientHeight - dy * .5,
-                    verti = clip[0].clientHeight / scope.markHeight, //1.9;
-                    hori =  clip[0].clientWidth / scope.markWidth;//2;
+                    verti = clip[0].clientHeight / scope.markHeight,
+                    hori =  clip[0].clientWidth / scope.markWidth;
 
-                //console.log('x', offsetRel.x, clip[0].clientWidth, dx *.5);
+                //console.log('moveMarkRel', offsetRel.y, clip[0].clientHeight, dy *.5);
+
                 mark
                     .css('left', x + 'px')
                     .css('top',  y + 'px');
@@ -101,12 +102,15 @@ angular
 
             function calculateOffsetRelative(mouseEvent) {
 
-                markBoundingRect = markBoundingRect || mouseEvent.currentTarget.getBoundingClientRect();
-                //console.log('offseet',  mouseEvent.currentTarget, mouseEvent.clientX, markBoundingRect.left, mouseEvent.currentTarget.clientWidth);
-                return {
-                    x: (mouseEvent.clientX - markBoundingRect.left) / (mouseEvent.currentTarget.clientWidth),
+                markBoundingRect = mouseEvent.currentTarget.getBoundingClientRect();
+                //console.log('calculateOffsetRelative',  mouseEvent.currentTarget, mouseEvent.clientX, markBoundingRect.left, mouseEvent.currentTarget.clientWidth);
+                var relPos = {
+                    x: (mouseEvent.clientX - markBoundingRect.left) / mouseEvent.currentTarget.clientWidth,
                     y: (mouseEvent.clientY - markBoundingRect.top) / mouseEvent.currentTarget.clientHeight
-                }
+                };
+                //console.log('calculateOffsetRelative', mouseEvent.clientY, markBoundingRect.top, mouseEvent.currentTarget.clientHeight, relPos);
+
+                return relPos;
             }
         }
 
