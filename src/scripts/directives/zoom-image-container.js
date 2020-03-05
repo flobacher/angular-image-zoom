@@ -31,6 +31,7 @@ angular
             });
 
             function updateZoomedRel(offsetRel) {
+                if (!scope.origDimensions) return;
                 scope.$apply(function () {
                     zoomedImg
                         .css('left', ((zoomed[0].clientWidth - scope.origDimensions.width)  * (offsetRel.x )) + 'px')
